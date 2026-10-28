@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LogLens report</title>
+<style>
+body{font-family:system-ui,sans-serif;background:#0F172A;color:#F1F5F9;margin:0 auto;max-width:960px;padding:24px}
+h1{font-size:2rem}h2{margin-top:2rem;color:#C7D2FE}
+.card{background:#1E293B;border-radius:12px;padding:16px 20px;margin:12px 0}
+.muted{color:#94A3B8}
+table{width:100%;border-collapse:collapse}
+td,th{padding:6px 10px;border-bottom:1px solid #334155;text-align:left}
+input{width:100%;padding:10px;border-radius:8px;border:1px solid #334155;background:#0F172A;color:#F1F5F9}
+.chip{margin:4px;padding:6px 12px;border-radius:999px;border:1px solid #6366F1;background:transparent;color:#F1F5F9;cursor:pointer}
+.chip.active{background:#6366F1}
+.bar-row{display:flex;align-items:center;gap:10px;margin:6px 0}
+.bar-label{width:130px;color:#94A3B8;font-size:.9rem}
+.bar-track{flex:1;background:#1E293B;border-radius:6px;height:16px}
+.bar-fill{display:block;background:#6366F1;height:16px;border-radius:6px}
+.bar-num{width:150px;font-size:.9rem;color:#94A3B8}
+</style>
+</head>
+<body>
+<h1>LogLens report</h1>
+<div class="card"><p>Entries: <strong>93</strong> (parsed: 91, unparsed: 2)</p>
+<p class="muted">Time range: 2026-10-28 10:00:01 .. 2026-10-28 11:00:00</p></div>
+<div class="card"><h2>Timeline</h2><div class="bar-row"><span class="bar-label">2026-10-28 10:00</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bar-num">90 total, 26 errors</span></div>
+<div class="bar-row"><span class="bar-label">2026-10-28 11:00</span><span class="bar-track"><span class="bar-fill" style="width:1%"></span></span><span class="bar-num">1 total, 0 errors</span></div></div>
+<div class="card"><h2>Top errors</h2><table><tr><th>Count</th><th>Message</th></tr><tr><td>8</td><td>Database connection failed to &lt;ip&gt;:# after # retries</td></tr>
+<tr><td>4</td><td>Timeout waiting for upstream service &lt;str&gt; after #s (request_id=req-#)</td></tr>
+<tr><td>4</td><td>GET /api/orders -&gt; #</td></tr>
+<tr><td>2</td><td>Order processing failed for order #: payment declined</td></tr>
+<tr><td>2</td><td>POST /api/checkout -&gt; #</td></tr>
+<tr><td>1</td><td>GET /api/orders -&gt; # in #ms (request_id=req-#)</td></tr>
+<tr><td>1</td><td>Traceback follows for request req-#</td></tr>
+<tr><td>1</td><td>GET /api/checkout -&gt; # in #ms (request_id=req-#)</td></tr>
+<tr><td>1</td><td>Database pool exhausted, rejecting new connections</td></tr>
+<tr><td>1</td><td>CRITICAL disk usage above # percent on /dev/sda#</td></tr></table></div>
+<div class="card"><h2>Bursts (busiest 60s windows)</h2><table><tr><th>Start</th><th>End</th><th>Entries</th><th>Errors</th><th>Error rate</th></tr><tr><td>2026-10-28 10:20:01</td><td>2026-10-28 10:21:01</td><td>8</td><td>8</td><td>100%</td></tr>
+<tr><td>2026-10-28 10:21:19</td><td>2026-10-28 10:22:19</td><td>7</td><td>7</td><td>100%</td></tr>
+<tr><td>2026-10-28 10:00:01</td><td>2026-10-28 10:01:01</td><td>6</td><td>0</td><td>0%</td></tr></table></div>
+<div class="card"><h2>Highest error-rate windows</h2><table><tr><th>Start</th><th>End</th><th>Entries</th><th>Errors</th><th>Error rate</th></tr><tr><td>2026-10-28 10:20:01</td><td>2026-10-28 10:21:01</td><td>8</td><td>8</td><td>100%</td></tr>
+<tr><td>2026-10-28 10:21:19</td><td>2026-10-28 10:22:19</td><td>7</td><td>7</td><td>100%</td></tr>
+<tr><td>2026-10-28 10:22:31</td><td>2026-10-28 10:23:31</td><td>5</td><td>4</td><td>80%</td></tr></table></div>
+
+<div class="card"><h2>Entries</h2>
+<input id="search" type="text" placeholder="Search entries...">
+<div id="chips"><button class="chip" data-level="INFO">INFO (56)</button><button class="chip" data-level="WARNING">WARNING (9)</button><button class="chip" data-level="ERROR">ERROR (25)</button><button class="chip" data-level="CRITICAL">CRITICAL (2)</button><button class="chip" data-level="UNKNOWN">UNKNOWN (1)</button> <button class="chip active" data-level="ALL">ALL</button></div>
+<table id="entries"><tr><th>Time</th><th>Level</th><th>Message</th></tr><tr data-level="INFO"><td>2026-10-28 10:00:01</td><td>INFO</td><td>Starting server on port 8000</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:00:02</td><td>INFO</td><td>Connected to database in 42ms</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:00:03</td><td>INFO</td><td>Cache warmed: 128 keys loaded</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:00:05</td><td>INFO</td><td>Health check endpoint registered</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:00:06</td><td>INFO</td><td>Started 4 worker processes</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:02:11</td><td>INFO</td><td>User alice@example.com logged in (request_id=req-1001)</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:02:45</td><td>INFO</td><td>GET /api/users -&gt; 200 in 18ms (request_id=req-1001)</td></tr>
+<tr data-level="WARNING"><td>2026-10-28 10:03:12</td><td>WARNING</td><td>Slow query on orders table took 1842ms</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:04:00</td><td>INFO</td><td>POST /api/orders -&gt; 201 in 64ms (request_id=req-1002)</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:05:22</td><td>INFO</td><td>Nightly report job scheduled</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:06:00</td><td>INFO</td><td>{&quot;event&quot;: &quot;heartbeat&quot;, &quot;uptime_s&quot;: 360}</td></tr>
+<tr data-level="WARNING"><td>2026-10-28 10:08:31</td><td>WARNING</td><td>Deprecated endpoint /v1/users called by client 203.0.113.7</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:10:02</td><td>INFO</td><td>GET /api/products -&gt; 200 in 22ms (request_id=req-1003)</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:10:44</td><td>INFO</td><td>User bob@example.com logged in (request_id=req-1004)</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:11:30</td><td>INFO</td><td>Cache hit rate 0.94 over last hour</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:20:01</td><td>ERROR</td><td>Database connection failed to 10.0.0.5:5432 after 3 retries</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:20:14</td><td>ERROR</td><td>Database connection failed to 10.0.0.9:5432 after 3 retries</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:20:27</td><td>ERROR</td><td>Database connection failed to 10.0.0.5:5432 after 5 retries</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:20:41</td><td>ERROR</td><td>Timeout waiting for upstream service &quot;payments&quot; after 30s (request_id=req-2001)</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:20:52</td><td>ERROR</td><td>Timeout waiting for upstream service &quot;payments&quot; after 45s (request_id=req-2002)</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:21:03</td><td>ERROR</td><td>Database connection failed to 10.0.0.12:5432 after 3 retries</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:21:19</td><td>ERROR</td><td>Timeout waiting for upstream service &quot;inventory&quot; after 30s (request_id=req-2003)</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:21:35</td><td>ERROR</td><td>Database connection failed to 10.0.0.5:5432 after 4 retries</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:21:50</td><td>ERROR</td><td>GET /api/orders -&gt; 500 in 3012ms (request_id=req-2001)</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:22:05</td><td>ERROR</td><td>Order processing failed for order 88412: payment declined</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:22:18</td><td>ERROR</td><td>Database connection failed to 10.0.0.9:5432 after 3 retries</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:22:31</td><td>ERROR</td><td>Order processing failed for order 88419: payment declined</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:22:44</td><td>ERROR</td><td>Traceback follows for request req-2001
+Traceback (most recent call last):
+  File &quot;/srv/app/api.py&quot;, line 142, in handle_order
+    result = db.execute(query)
+  File &quot;/srv/app/db.py&quot;, line 88, in execute
+    raise ConnectionError(&quot;pool exhausted&quot;)
+ConnectionError: pool exhausted</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:23:10</td><td>ERROR</td><td>GET /api/checkout -&gt; 500 in 2988ms (request_id=req-2001)</td></tr>
+<tr data-level="WARNING"><td>2026-10-28 10:24:02</td><td>WARNING</td><td>Retrying upstream service &quot;payments&quot; (attempt 2)</td></tr>
+<tr data-level="CRITICAL"><td>2026-10-28 10:25:00</td><td>CRITICAL</td><td>Database pool exhausted, rejecting new connections</td></tr>
+<tr data-level="UNKNOWN"><td>-</td><td>UNKNOWN</td><td>!!! this line has no log format at all</td></tr>
+<tr data-level="CRITICAL"><td>-</td><td>CRITICAL</td><td>CRITICAL disk usage above 95 percent on /dev/sda1</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:26:15</td><td>INFO</td><td>Database connection restored after 312s outage</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:27:00</td><td>INFO</td><td>GET /api/users -&gt; 200 in 15ms</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:27:30</td><td>ERROR</td><td>Database connection failed to 10.0.0.5:5432 after 3 retries</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:28:00</td><td>INFO</td><td>Cache invalidated for 57 keys</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:30:11</td><td>INFO</td><td>GET /api/users -&gt; 200 in 19ms (request_id=req-3003)</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:30:45</td><td>INFO</td><td>User carol@example.com logged in (request_id=req-3004)</td></tr>
+<tr data-level="WARNING"><td>2026-10-28 10:31:22</td><td>WARNING</td><td>Cache eviction rate above threshold: 412 evictions/min</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:32:00</td><td>INFO</td><td>Report job finished in 84s, 1200 rows written</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:33:10</td><td>INFO</td><td>POST /api/orders -&gt; 201 in 71ms (request_id=req-3005)</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:35:00</td><td>INFO</td><td>Worker pool scaled to 6 processes</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:36:20</td><td>INFO</td><td>GET /api/products -&gt; 200 in 21ms (request_id=req-3006)</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:38:00</td><td>INFO</td><td>User dave@example.com logged in (request_id=req-3007)</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:40:11</td><td>INFO</td><td>GET /api/orders -&gt; 200 in 33ms (request_id=req-3008)</td></tr>
+<tr data-level="WARNING"><td>2026-10-28 10:42:22</td><td>WARNING</td><td>Slow query on products table took 1520ms</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:44:33</td><td>INFO</td><td>Cache hit rate 0.91 over last hour</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:50:05</td><td>ERROR</td><td>Timeout waiting for upstream service &quot;shipping&quot; after 30s (request_id=req-4001)</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:50:44</td><td>ERROR</td><td>Database connection failed to 10.0.0.5:5432 after 3 retries</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:52:00</td><td>INFO</td><td>GET /api/health -&gt; 200 in 3ms</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:55:10</td><td>INFO</td><td>Cleanup job removed 214 stale sessions</td></tr>
+<tr data-level="INFO"><td>2026-10-28 11:00:00</td><td>INFO</td><td>Daily summary: 1241 requests, 98.2 percent success</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:00:12</td><td>INFO</td><td>GET /api/users -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:01:05</td><td>INFO</td><td>GET /api/products -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:02:44</td><td>INFO</td><td>POST /api/orders -&gt; 201</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:03:19</td><td>INFO</td><td>GET /static/app.js -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:05:31</td><td>INFO</td><td>GET /api/users/42 -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:06:58</td><td>INFO</td><td>GET /api/orders -&gt; 200</td></tr>
+<tr data-level="WARNING"><td>2026-10-28 10:08:12</td><td>WARNING</td><td>GET /favicon.ico -&gt; 404</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:09:47</td><td>INFO</td><td>GET /api/products/7 -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:11:03</td><td>INFO</td><td>POST /api/orders -&gt; 201</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:12:36</td><td>INFO</td><td>GET /api/users -&gt; 200</td></tr>
+<tr data-level="WARNING"><td>2026-10-28 10:14:22</td><td>WARNING</td><td>GET /old-page -&gt; 404</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:15:51</td><td>INFO</td><td>GET /api/orders -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:17:08</td><td>INFO</td><td>GET /api/products -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:18:29</td><td>INFO</td><td>GET /static/style.css -&gt; 200</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:20:04</td><td>ERROR</td><td>GET /api/orders -&gt; 500</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:20:19</td><td>ERROR</td><td>POST /api/checkout -&gt; 500</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:20:41</td><td>ERROR</td><td>GET /api/orders -&gt; 502</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:21:07</td><td>ERROR</td><td>GET /api/users -&gt; 500</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:21:33</td><td>ERROR</td><td>POST /api/checkout -&gt; 500</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:22:15</td><td>ERROR</td><td>GET /api/products -&gt; 500</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:22:48</td><td>ERROR</td><td>GET /api/orders -&gt; 503</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:23:12</td><td>INFO</td><td>GET /api/users -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:24:36</td><td>INFO</td><td>GET /api/orders -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:26:04</td><td>INFO</td><td>GET /api/products -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:27:19</td><td>INFO</td><td>POST /api/orders -&gt; 201</td></tr>
+<tr data-level="WARNING"><td>2026-10-28 10:28:52</td><td>WARNING</td><td>GET /missing-page -&gt; 404</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:30:11</td><td>INFO</td><td>GET /api/users -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:31:44</td><td>INFO</td><td>GET /api/orders/88412 -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:33:27</td><td>INFO</td><td>GET /static/app.js -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:35:58</td><td>INFO</td><td>GET /api/products -&gt; 200</td></tr>
+<tr data-level="WARNING"><td>2026-10-28 10:37:41</td><td>WARNING</td><td>GET /api/users/99 -&gt; 404</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:39:16</td><td>INFO</td><td>POST /api/orders -&gt; 201</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:41:03</td><td>INFO</td><td>GET /api/orders -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:42:29</td><td>INFO</td><td>GET /api/products -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:44:51</td><td>INFO</td><td>GET /api/users -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:46:18</td><td>INFO</td><td>GET /api/health -&gt; 200</td></tr>
+<tr data-level="ERROR"><td>2026-10-28 10:48:33</td><td>ERROR</td><td>GET /api/orders -&gt; 500</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:50:07</td><td>INFO</td><td>GET /api/users -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:52:41</td><td>INFO</td><td>GET /api/products -&gt; 200</td></tr>
+<tr data-level="INFO"><td>2026-10-28 10:54:05</td><td>INFO</td><td>GET /api/orders -&gt; 200</td></tr></table></div>
+<script>
+var search=document.getElementById('search');
+var active='ALL';
+function apply(){var q=search.value.toLowerCase();var rows=document.querySelectorAll('#entries tr[data-level]');rows.forEach(function(r){var ok=(active==='ALL'||r.dataset.level===active)&&r.textContent.toLowerCase().indexOf(q)>=0;r.style.display=ok?'':'none';});}
+search.addEventListener('input',apply);
+document.querySelectorAll('.chip').forEach(function(c){c.addEventListener('click',function(){document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active');});c.classList.add('active');active=c.dataset.level;apply();});});
+</script>
+</body>
+</html>

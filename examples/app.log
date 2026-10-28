@@ -1,0 +1,59 @@
+2026-10-28 10:00:01,120 INFO app: Starting server on port 8000
+2026-10-28 10:00:02,340 INFO app.db: Connected to database in 42ms
+2026-10-28 10:00:03,010 INFO app.cache: Cache warmed: 128 keys loaded
+2026-10-28 10:00:05,500 INFO app: Health check endpoint registered
+2026-10-28 10:00:06,210 INFO app.worker: Started 4 worker processes
+2026-10-28 10:02:11,090 INFO app.auth: User alice@example.com logged in (request_id=req-1001)
+2026-10-28 10:02:45,330 INFO app.api: GET /api/users -> 200 in 18ms (request_id=req-1001)
+2026-10-28 10:03:12,780 WARNING app.db: Slow query on orders table took 1842ms
+2026-10-28 10:04:00,050 INFO app.api: POST /api/orders -> 201 in 64ms (request_id=req-1002)
+2026-10-28 10:05:22,410 INFO app.jobs: Nightly report job scheduled
+2026-10-28 10:06:00,000 INFO app: {"event": "heartbeat", "uptime_s": 360}
+2026-10-28 10:08:31,220 WARNING app.api: Deprecated endpoint /v1/users called by client 203.0.113.7
+2026-10-28 10:10:02,150 INFO app.api: GET /api/products -> 200 in 22ms (request_id=req-1003)
+2026-10-28 10:10:44,900 INFO app.auth: User bob@example.com logged in (request_id=req-1004)
+2026-10-28 10:11:30,000 INFO app.cache: Cache hit rate 0.94 over last hour
+2026-10-28 10:20:01,100 ERROR app.db: Database connection failed to 10.0.0.5:5432 after 3 retries
+2026-10-28 10:20:14,220 ERROR app.db: Database connection failed to 10.0.0.9:5432 after 3 retries
+2026-10-28 10:20:27,330 ERROR app.db: Database connection failed to 10.0.0.5:5432 after 5 retries
+2026-10-28 10:20:41,440 ERROR app.api: Timeout waiting for upstream service "payments" after 30s (request_id=req-2001)
+2026-10-28 10:20:52,550 ERROR app.api: Timeout waiting for upstream service "payments" after 45s (request_id=req-2002)
+2026-10-28 10:21:03,660 ERROR app.db: Database connection failed to 10.0.0.12:5432 after 3 retries
+2026-10-28 10:21:19,770 ERROR app.api: Timeout waiting for upstream service "inventory" after 30s (request_id=req-2003)
+2026-10-28 10:21:35,880 ERROR app.db: Database connection failed to 10.0.0.5:5432 after 4 retries
+2026-10-28 10:21:50,990 ERROR app.api: GET /api/orders -> 500 in 3012ms (request_id=req-2001)
+2026-10-28 10:22:05,100 ERROR app.orders: Order processing failed for order 88412: payment declined
+2026-10-28 10:22:18,210 ERROR app.db: Database connection failed to 10.0.0.9:5432 after 3 retries
+2026-10-28 10:22:31,320 ERROR app.orders: Order processing failed for order 88419: payment declined
+2026-10-28 10:22:44,430 ERROR app.api: Traceback follows for request req-2001
+Traceback (most recent call last):
+  File "/srv/app/api.py", line 142, in handle_order
+    result = db.execute(query)
+  File "/srv/app/db.py", line 88, in execute
+    raise ConnectionError("pool exhausted")
+ConnectionError: pool exhausted
+2026-10-28 10:23:10,540 ERROR app.api: GET /api/checkout -> 500 in 2988ms (request_id=req-2001)
+2026-10-28 10:24:02,650 WARNING app.api: Retrying upstream service "payments" (attempt 2)
+2026-10-28 10:25:00,000 CRITICAL app.db: Database pool exhausted, rejecting new connections
+!!! this line has no log format at all
+CRITICAL disk usage above 95 percent on /dev/sda1
+2026-10-28 10:26:15,000 INFO app.db: Database connection restored after 312s outage
+{"timestamp": "2026-10-28T10:27:00", "level": "INFO", "logger": "app.api", "message": "GET /api/users -> 200 in 15ms", "request_id": "req-3001"}
+{"timestamp": "2026-10-28T10:27:30", "level": "ERROR", "logger": "app.api", "message": "Database connection failed to 10.0.0.5:5432 after 3 retries", "request_id": "req-3002"}
+{"timestamp": "2026-10-28T10:28:00", "level": "INFO", "logger": "app.cache", "message": "Cache invalidated for 57 keys"}
+2026-10-28 10:30:11,200 INFO app.api: GET /api/users -> 200 in 19ms (request_id=req-3003)
+2026-10-28 10:30:45,310 INFO app.auth: User carol@example.com logged in (request_id=req-3004)
+2026-10-28 10:31:22,420 WARNING app.cache: Cache eviction rate above threshold: 412 evictions/min
+2026-10-28 10:32:00,530 INFO app.jobs: Report job finished in 84s, 1200 rows written
+2026-10-28 10:33:10,640 INFO app.api: POST /api/orders -> 201 in 71ms (request_id=req-3005)
+2026-10-28 10:35:00,750 INFO app.worker: Worker pool scaled to 6 processes
+2026-10-28 10:36:20,860 INFO app.api: GET /api/products -> 200 in 21ms (request_id=req-3006)
+2026-10-28 10:38:00,970 INFO app.auth: User dave@example.com logged in (request_id=req-3007)
+2026-10-28 10:40:11,080 INFO app.api: GET /api/orders -> 200 in 33ms (request_id=req-3008)
+2026-10-28 10:42:22,190 WARNING app.db: Slow query on products table took 1520ms
+2026-10-28 10:44:33,200 INFO app.cache: Cache hit rate 0.91 over last hour
+2026-10-28 10:50:05,310 ERROR app.api: Timeout waiting for upstream service "shipping" after 30s (request_id=req-4001)
+2026-10-28 10:50:44,420 ERROR app.db: Database connection failed to 10.0.0.5:5432 after 3 retries
+2026-10-28 10:52:00,000 INFO app.api: GET /api/health -> 200 in 3ms
+2026-10-28 10:55:10,530 INFO app.jobs: Cleanup job removed 214 stale sessions
+2026-10-28 11:00:00,000 INFO app: Daily summary: 1241 requests, 98.2 percent success
